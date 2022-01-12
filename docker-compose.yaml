@@ -16,6 +16,8 @@ services:
     build: services/backend
     container_name: backend-dcf
     environment:
+      # - CELERY_BROKER_URL=redis://redis:6379
+      # - CELERY_BACKEND_URL=redis://redis:6379
       - DJANGO_DB_ENGINE=django.db.backends.postgresql
       - DJANGO_DB_NAME=dcf
       - DJANGO_DB_USER=user
@@ -29,6 +31,10 @@ services:
     ports:
       - 8000:8000
     command: python manage.py runserver 0.0.0.0:8000
+
+  redis-dcf:
+    image: redis:6.0.8-alpine
+    container_name: redis-dcf
 
 volumes:
   database-dcf:
