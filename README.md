@@ -47,4 +47,5 @@ and launch this docker-compose command:
 ```
 docker-compose run backend-dcf django-admin startproject dcf .
 ```
+All the subsequent modifications follow the same pattern i.e. apply a Django command throught ```docker-compose run```
 
