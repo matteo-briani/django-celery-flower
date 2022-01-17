@@ -32,6 +32,24 @@ services:
       - 8000:8000
     command: python manage.py runserver 0.0.0.0:8000
 
+  backend-worker-dcf:
+    build: services/backend
+    container_name: backend-worker-dcf
+    environment:
+      # - CELERY_BROKER_URL=redis://redis:6379
+      # - CELERY_BACKEND_URL=redis://redis:6379
+      - DJANGO_DB_ENGINE=django.db.backends.postgresql
+      - DJANGO_DB_NAME=dcf
+      - DJANGO_DB_USER=user
+      - DJANGO_DB_PASSWORD=password
+      - DJANGO_DB_HOST=database-dcf
+      - DJANGO_DB_PORT=5432
+    volumes:
+      - ./services/backend/code:/code
+    depends_on:
+      - database-dcf
+    command: celery --app dcf worker -Ofair -l info
+
   redis-dcf:
     image: redis:6.0.8-alpine
     container_name: redis-dcf
