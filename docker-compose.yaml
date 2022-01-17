@@ -54,5 +54,15 @@ services:
     image: redis:6.0.8-alpine
     container_name: redis-dcf
 
+  flower:  
+    image: mher/flower:0.9.7
+    container_name: flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis-dcf:6379/0
+      - FLOWER_PORT=8888
+    # command: --url_prefix=flower
+    ports:  
+      - 8888:8888
+
 volumes:
   database-dcf:
