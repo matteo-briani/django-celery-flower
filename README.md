@@ -20,6 +20,13 @@ submit_heavy_computation_task.sh --task_number $TASK_NUMBER
 where $TASK_NUMBER is a value between 0 and 9.
 If we submit the same task before its completion, the task will not be queue.
 
+## Check flower from cURL
+If you have ```curl``` you can check the tasks using
+```
+curl localhost:8888/api/tasks?offset=0
+```
+Beware that ```offset=0``` is required due to a bug in the specific version of Flower
+
 ## How was this project build?
 
 If you are willing to recreate a similar project from scratch, here are some hints:
