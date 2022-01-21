@@ -3,3 +3,4 @@ psycopg2>=2.0
 celery
 django-celery
 redis
+celery_once

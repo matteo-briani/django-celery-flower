@@ -27,5 +27,5 @@ class HeavyComputation(models.Model):
         super(HeavyComputation, self).save(*args, **kwargs)  
 
     def compute(self):
-        sleep(30) 
+        sleep(180) 
 
