@@ -8,6 +8,17 @@ Just run
 ```bash
 docker-compose up -d
 ```
+After the initialization, populate the backend with 
+```
+./populate_backend.sh
+```
+Now, the backend has 10 instances of the ```HeavyComputation``` model. 
+We can submit each instance for a computation by issuing
+```
+submit_heavy_computation_task.sh --task_number $TASK_NUMBER
+```
+where $TASK_NUMBER is a value between 0 and 9.
+If we submit the same task before its completion, the task will not be queue.
 
 ## How was this project build?
 
