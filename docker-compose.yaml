@@ -48,7 +48,8 @@ services:
       - ./services/backend/code:/code
     depends_on:
       - database-dcf
-    command: celery --app dcf worker -Ofair -l info
+    # Concurrency is forced to 1 in order to easily create queue of tasks
+    command: celery --app dcf worker --concurrency=1 -Ofair -l info 
 
   redis-dcf:
     image: redis:6.0.8-alpine
