@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from heavyComputation.tasks import heavy_computation_task
+from heavyComputation.models import HeavyComputation
 from celery_once import AlreadyQueued
 
 class Command(BaseCommand):
@@ -18,7 +19,9 @@ class Command(BaseCommand):
         task_number = options['task_number']
 
         try:
-            heavy_computation_task.delay(task_number=task_number)
+            # translate task to uuid
+            hc = HeavyComputation.objects.all()[task_number]
+            heavy_computation_task.delay(heavy_computation_uuid = hc.uuid)
         except AlreadyQueued:
             print('Task already queued, submission is locked')
         except Exception:
