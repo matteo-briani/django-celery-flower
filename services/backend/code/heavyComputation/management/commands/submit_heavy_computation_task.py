@@ -21,3 +21,6 @@ class Command(BaseCommand):
             heavy_computation_task.delay(task_number=task_number)
         except AlreadyQueued:
             print('Task already queued, submission is locked')
+        except Exception:
+            raise
+

@@ -1,6 +1,11 @@
 from django.db import models
 import uuid
 from time import sleep
+from random import randint
+from enum import Enum
+
+class CustomComputationException(Exception):
+    pass
 
 class HeavyComputation(models.Model):
 
@@ -27,5 +32,14 @@ class HeavyComputation(models.Model):
         super(HeavyComputation, self).save(*args, **kwargs)  
 
     def compute(self):
-        sleep(180) 
+
+        sleep(30) 
+        # Simulate unrecoverable error
+        if randint(1, 10) <= 3:
+            raise CustomComputationException('A -mocked- unrecovarable error occured during computation')
+        sleep(30) 
+        # Simulate a recovarable error during computation
+        if randint(1, 10) <= 5:
+            return 'report computed but encountered computational errors'
+        return 'report computed successfully' 
 
