@@ -1,6 +1,5 @@
-Django>=3.0,<4.0
-psycopg2>=2.0
-celery
-django-celery
-redis
-celery_once
+Django==3.2.11
+psycopg2==2.9.3
+celery==5.2.3
+celery_once==3.0.1
+requests==2.27.1
