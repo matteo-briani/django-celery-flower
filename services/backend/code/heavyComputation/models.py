@@ -21,7 +21,6 @@ class HeavyComputation(models.Model):
     uuid         = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name         = models.CharField('Name', max_length=36)
     status       = models.CharField('Status', max_length=36, choices=STATES, default='Initialized', blank=True, null=False)
-    task_uuid    = models.UUIDField(blank=True, null=True, editable=True)
 
     def __str__(self):
         return f'HeavyCompuation - name "{self.name}" - status "{self.status}"'
