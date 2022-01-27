@@ -8,4 +8,9 @@ def heavy_computation_task(self, heavy_computation_uuid = None):
         raise Exception
     hc = HeavyComputation.objects.get(uuid = heavy_computation_uuid)
     result = hc.compute()
+    if result == 'report computed but encountered computational errors':
+        hc.status = 'Error'
+    if result == 'report computed successfully':
+        hc.status = 'Computed'
+    hc.save()
     return result
