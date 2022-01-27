@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
         try:
             # translate task to uuid
-            hc = HeavyComputation.objects.all()[task_number]
+            hc = HeavyComputation.objects.all().order_by('name')[task_number]
             heavy_computation_task.delay(heavy_computation_uuid = hc.uuid)
         except AlreadyQueued:
             print('Task already queued, submission is locked')
