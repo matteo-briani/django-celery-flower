@@ -51,6 +51,24 @@ services:
     # Concurrency is forced to 1 in order to easily create queue of tasks
     command: celery --app dcf worker --concurrency=1 -Ofair -l info 
 
+  backend-model-update-dcf:
+    build: services/backend
+    container_name: backend-model-update-dcf
+    environment:
+      - CELERY_BROKER_URL=redis://redis-dcf:6379
+      - CELERY_RESULT_BACKEND=redis://redis-dcf:6379
+      - DJANGO_DB_ENGINE=django.db.backends.postgresql
+      - DJANGO_DB_NAME=dcf
+      - DJANGO_DB_USER=user
+      - DJANGO_DB_PASSWORD=password
+      - DJANGO_DB_HOST=database-dcf
+      - DJANGO_DB_PORT=5432
+    volumes:
+      - ./services/backend/code:/code
+    depends_on:
+      - database-dcf
+    command: bash -c 'while :; do python manage.py update_heavycomputation_instances_status; sleep 10; done'
+
   redis-dcf:
     image: redis:6.0.8-alpine
     container_name: redis-dcf
